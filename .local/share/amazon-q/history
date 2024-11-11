@@ -3029,3 +3029,33 @@
   session_id: 849d060984bb4eb1a49c79c3c0d4bcbf
   cwd: /home/cloudshell-user
   time: 1731349781
+- command: git add .
+  exit_code: 0
+  shell: bash
+  session_id: 849d060984bb4eb1a49c79c3c0d4bcbf
+  cwd: /home/cloudshell-user
+  time: 1731349788
+- command: git remote add origin https://github.com/daniarango378/Reto2TET.git                                                                                                                              error: remote origin already exists.
+  exit_code: 0
+  shell: bash
+  session_id: 849d060984bb4eb1a49c79c3c0d4bcbf
+  cwd: /home/cloudshell-user
+  time: 1731349820
+- command: git push -u origin main                                                                                                                                                                          error: src refspec main does not match any                                                                                                                                                                                                              error: failed to push some refs to 'https://github.com/daniarango378/Reto2TET.git'
+  exit_code: 0
+  shell: bash
+  session_id: 849d060984bb4eb1a49c79c3c0d4bcbf
+  cwd: /home/cloudshell-user
+  time: 1731349830
+- command: git branch                                                                                                                                                                                       * master
+  exit_code: 0
+  shell: bash
+  session_id: 849d060984bb4eb1a49c79c3c0d4bcbf
+  cwd: /home/cloudshell-user
+  time: 1731349871
+- command: git checkout -b main                                                                                                                                                                             Switched to a new branch 'main'
+  exit_code: 0
+  shell: bash
+  session_id: 849d060984bb4eb1a49c79c3c0d4bcbf
+  cwd: /home/cloudshell-user
+  time: 1731349890

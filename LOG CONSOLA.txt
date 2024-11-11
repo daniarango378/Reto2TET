@@ -1,0 +1,459 @@
+[cloudshell-user@ip-10-136-43-151 ~]$ nano apiVersion: v1
+[cloudshell-user@ip-10-136-43-151 ~]$ nano namespace.yaml
+[cloudshell-user@ip-10-136-43-151 ~]$ nano deployment.yaml                                                                                                                                                                                                                              
+[cloudshell-user@ip-10-136-43-151 ~]$ nano service.yaml
+[cloudshell-user@ip-10-136-43-151 ~]$ nano persistentvolume.yaml
+[cloudshell-user@ip-10-136-43-151 ~]$ nano persistentvolumeclaim.yaml
+[cloudshell-user@ip-10-136-43-151 ~]$ helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+bash: helm: command not found
+[cloudshell-user@ip-10-136-43-151 ~]$ helm repo update
+bash: helm: command not found
+[cloudshell-user@ip-10-136-43-151 ~]$ helm install nginx-ingress ingress-nginx/ingress-nginx \
+>   --namespace ingress-nginx \
+>   --create-namespace
+bash: helm: command not found
+[cloudshell-user@ip-10-136-43-151 ~]$ curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+[cloudshell-user@ip-10-136-43-151 ~]$ chmod 700 get_helm.sh
+[cloudshell-user@ip-10-136-43-151 ~]$ ./get_helm.sh
+Downloading https://get.helm.sh/helm-v3.16.2-linux-amd64.tar.gz
+Verifying checksum... Done.
+Preparing to install helm into /usr/local/bin
+helm installed into /usr/local/bin/helm
+[cloudshell-user@ip-10-136-43-151 ~]$ helm version
+version.BuildInfo{Version:"v3.16.2", GitCommit:"13654a52f7c70a143b1dd51416d633e1071faffb", GitTreeState:"clean", GoVersion:"go1.22.7"}
+[cloudshell-user@ip-10-136-43-151 ~]$ helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+"ingress-nginx" already exists with the same configuration, skipping
+[cloudshell-user@ip-10-136-43-151 ~]$ helm repo update
+Hang tight while we grab the latest from your chart repositories...
+...Successfully got an update from the "ingress-nginx" chart repository
+Update Complete. ⎈Happy Helming!⎈
+[cloudshell-user@ip-10-136-43-151 ~]$ helm install nginx-ingress ingress-nginx/ingress-nginx \
+>   --namespace ingress-nginx \
+>   --create-namespace
+Error: INSTALLATION FAILED: Kubernetes cluster unreachable: Get "https://C19BFDC0DADB999D993E5BE07718D821.gr7.us-east-1.eks.amazonaws.com/version": dial tcp: lookup C19BFDC0DADB999D993E5BE07718D821.gr7.us-east-1.eks.amazonaws.com on 10.0.0.2:53: no such host
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl get nodes
+
+E1108 19:25:31.673003     563 memcache.go:265] "Unhandled Error" err="couldn't get current server API group list: Get \"https://C19BFDC0DADB999D993E5BE07718D821.gr7.us-east-1.eks.amazonaws.com/api?timeout=32s\": dial tcp: lookup C19BFDC0DADB999D993E5BE07718D821.gr7.us-east-1.eks.amazonaws.com on 10.0.0.2:53: no such host"
+E1108 19:25:31.676841     563 memcache.go:265] "Unhandled Error" err="couldn't get current server API group list: Get \"https://C19BFDC0DADB999D993E5BE07718D821.gr7.us-east-1.eks.amazonaws.com/api?timeout=32s\": dial tcp: lookup C19BFDC0DADB999D993E5BE07718D821.gr7.us-east-1.eks.amazonaws.com on 10.0.0.2:53: no such host"
+E1108 19:25:31.678932     563 memcache.go:265] "Unhandled Error" err="couldn't get current server API group list: Get \"https://C19BFDC0DADB999D993E5BE07718D821.gr7.us-east-1.eks.amazonaws.com/api?timeout=32s\": dial tcp: lookup C19BFDC0DADB999D993E5BE07718D821.gr7.us-east-1.eks.amazonaws.com on 10.0.0.2:53: no such host"
+E1108 19:25:31.680915     563 memcache.go:265] "Unhandled Error" err="couldn't get current server API group list: Get \"https://C19BFDC0DADB999D993E5BE07718D821.gr7.us-east-1.eks.amazonaws.com/api?timeout=32s\": dial tcp: lookup C19BFDC0DADB999D993E5BE07718D821.gr7.us-east-1.eks.amazonaws.com on 10.0.0.2:53: no such host"
+E1108 19:25:31.683016     563 memcache.go:265] "Unhandled Error" err="couldn't get current server API group list: Get \"https://C19BFDC0DADB999D993E5BE07718D821.gr7.us-east-1.eks.amazonaws.com/api?timeout=32s\": dial tcp: lookup C19BFDC0DADB999D993E5BE07718D821.gr7.us-east-1.eks.amazonaws.com on 10.0.0.2:53: no such host"
+Unable to connect to the server: dial tcp: lookup C19BFDC0DADB999D993E5BE07718D821.gr7.us-east-1.eks.amazonaws.com on 10.0.0.2:53: no such host
+[cloudshell-user@ip-10-136-43-151 ~]$ 
+[cloudshell-user@ip-10-136-43-151 ~]$ aws eks --region us-east-1 update-kubeconfig --name <nombre-del-cluster>
+bash: syntax error near unexpected token `newline'
+[cloudshell-user@ip-10-136-43-151 ~]$ aws eks --region us-east-1 update-kubeconfig --name clusterreto2
+Added new context arn:aws:eks:us-east-1:553336681067:cluster/clusterreto2 to /home/cloudshell-user/.kube/config
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl apply -f namespace.yaml
+namespace/wordpress created
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl apply -f deployment.yaml
+deployment.apps/wordpress created
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl apply -f service.yaml
+service/wordpress-service created
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl apply -f persistentvolume.yaml
+persistentvolume/wordpress-pv created
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl apply -f persistentvolumeclaim.yaml
+persistentvolumeclaim/wordpress-pv-claim created
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl get nodes
+NAME                            STATUS   ROLES    AGE   VERSION
+ip-172-31-15-180.ec2.internal   Ready    <none>   62m   v1.31.0-eks-a737599
+ip-172-31-70-64.ec2.internal    Ready    <none>   63m   v1.31.0-eks-a737599
+[cloudshell-user@ip-10-136-43-151 ~]$ helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+"ingress-nginx" already exists with the same configuration, skipping
+[cloudshell-user@ip-10-136-43-151 ~]$ helm repo update
+Hang tight while we grab the latest from your chart repositories...
+...Successfully got an update from the "ingress-nginx" chart repository
+Update Complete. ⎈Happy Helming!⎈
+[cloudshell-user@ip-10-136-43-151 ~]$ helm install nginx-ingress ingress-nginx/ingress-nginx \
+>   --namespace ingress-nginx \
+>   --create-namespace
+NAME: nginx-ingress
+LAST DEPLOYED: Fri Nov  8 19:26:56 2024
+NAMESPACE: ingress-nginx
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+NOTES:
+The ingress-nginx controller has been installed.
+It may take a few minutes for the load balancer IP to be available.
+You can watch the status by running 'kubectl get service --namespace ingress-nginx nginx-ingress-ingress-nginx-controller --output wide --watch'
+
+An example Ingress that makes use of the controller:
+  apiVersion: networking.k8s.io/v1
+  kind: Ingress
+  metadata:
+    name: example
+    namespace: foo
+  spec:
+    ingressClassName: nginx
+    rules:
+      - host: www.example.com
+        http:
+          paths:
+            - pathType: Prefix
+              backend:
+                service:
+                  name: exampleService
+                  port:
+                    number: 80
+              path: /
+    # This section is only required if TLS is to be enabled for the Ingress
+    tls:
+      - hosts:
+        - www.example.com
+        secretName: example-tls
+
+If TLS is enabled for the Ingress, a Secret containing the certificate and key must also be provided:
+
+  apiVersion: v1
+  kind: Secret
+  metadata:
+    name: example-tls
+    namespace: foo
+  data:
+    tls.crt: <base64 encoded cert>
+    tls.key: <base64 encoded key>
+  type: kubernetes.io/tls
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl get svc -n ingress-nginx
+NAME                                               TYPE           CLUSTER-IP       EXTERNAL-IP                                                               PORT(S)                      AGE
+nginx-ingress-ingress-nginx-controller             LoadBalancer   10.100.94.108    a66e80680e22843dabc063723483a918-1212213072.us-east-1.elb.amazonaws.com   80:32464/TCP,443:30930/TCP   65s
+nginx-ingress-ingress-nginx-controller-admission   ClusterIP      10.100.204.102   <none>                                                                    443/TCP                      65s
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl get nodes
+NAME                            STATUS   ROLES    AGE   VERSION
+ip-172-31-15-180.ec2.internal   Ready    <none>   65m   v1.31.0-eks-a737599
+ip-172-31-70-64.ec2.internal    Ready    <none>   65m   v1.31.0-eks-a737599
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl get svc -n ingress-nginx
+NAME                                               TYPE           CLUSTER-IP       EXTERNAL-IP                                                               PORT(S)                      AGE
+nginx-ingress-ingress-nginx-controller             LoadBalancer   10.100.94.108    a66e80680e22843dabc063723483a918-1212213072.us-east-1.elb.amazonaws.com   80:32464/TCP,443:30930/TCP   112s
+nginx-ingress-ingress-nginx-controller-admission   ClusterIP      10.100.204.102   <none>                                                                    443/TCP                      112s
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl get nodes
+NAME                            STATUS   ROLES    AGE   VERSION
+ip-172-31-15-180.ec2.internal   Ready    <none>   66m   v1.31.0-eks-a737599
+ip-172-31-70-64.ec2.internal    Ready    <none>   66m   v1.31.0-eks-a737599
+[cloudshell-user@ip-10-136-43-151 ~]$ nano ingress.yaml
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl apply -f ingress.yaml
+Warning: annotation "kubernetes.io/ingress.class" is deprecated, please use 'spec.ingressClassName' instead
+ingress.networking.k8s.io/wordpress-ingress created
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.12.2/cert-manager.yaml
+namespace/cert-manager created
+customresourcedefinition.apiextensions.k8s.io/certificaterequests.cert-manager.io created
+customresourcedefinition.apiextensions.k8s.io/certificates.cert-manager.io created
+customresourcedefinition.apiextensions.k8s.io/challenges.acme.cert-manager.io created
+customresourcedefinition.apiextensions.k8s.io/clusterissuers.cert-manager.io created
+customresourcedefinition.apiextensions.k8s.io/issuers.cert-manager.io created
+customresourcedefinition.apiextensions.k8s.io/orders.acme.cert-manager.io created
+serviceaccount/cert-manager-cainjector created
+serviceaccount/cert-manager created
+serviceaccount/cert-manager-webhook created
+configmap/cert-manager-webhook created
+clusterrole.rbac.authorization.k8s.io/cert-manager-cainjector created
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-issuers created
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-clusterissuers created
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-certificates created
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-orders created
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-challenges created
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-ingress-shim created
+clusterrole.rbac.authorization.k8s.io/cert-manager-view created
+clusterrole.rbac.authorization.k8s.io/cert-manager-edit created
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-approve:cert-manager-io created
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-certificatesigningrequests created
+clusterrole.rbac.authorization.k8s.io/cert-manager-webhook:subjectaccessreviews created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-cainjector created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-issuers created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-clusterissuers created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-certificates created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-orders created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-challenges created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-ingress-shim created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-approve:cert-manager-io created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-certificatesigningrequests created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-webhook:subjectaccessreviews created
+role.rbac.authorization.k8s.io/cert-manager-cainjector:leaderelection created
+role.rbac.authorization.k8s.io/cert-manager:leaderelection created
+role.rbac.authorization.k8s.io/cert-manager-webhook:dynamic-serving created
+rolebinding.rbac.authorization.k8s.io/cert-manager-cainjector:leaderelection created
+rolebinding.rbac.authorization.k8s.io/cert-manager:leaderelection created
+rolebinding.rbac.authorization.k8s.io/cert-manager-webhook:dynamic-serving created
+service/cert-manager created
+service/cert-manager-webhook created
+deployment.apps/cert-manager-cainjector created
+deployment.apps/cert-manager created
+deployment.apps/cert-manager-webhook created
+mutatingwebhookconfiguration.admissionregistration.k8s.io/cert-manager-webhook created
+validatingwebhookconfiguration.admissionregistration.k8s.io/cert-manager-webhook created
+[cloudshell-user@ip-10-136-43-151 ~]$ nano clusterissuer.yaml
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl apply -f clusterissuer.yaml                                                                                                                                                                                                               
+clusterissuer.cert-manager.io/letsencrypt-prod created
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl get service nginx-ingress-controller -n ingress-nginx
+Error from server (NotFound): services "nginx-ingress-controller" not found
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl get service nginx-ingress-controller -n ingress-nginx
+Error from server (NotFound): services "nginx-ingress-controller" not found
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl get pods -n ingress-nginx
+NAME                                                      READY   STATUS    RESTARTS   AGE
+nginx-ingress-ingress-nginx-controller-7c6d79cbc4-rwdsj   1/1     Running   0          9m16s
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl get services -n ingress-nginx
+NAME                                               TYPE           CLUSTER-IP       EXTERNAL-IP                                                               PORT(S)                      AGE
+nginx-ingress-ingress-nginx-controller             LoadBalancer   10.100.94.108    a66e80680e22843dabc063723483a918-1212213072.us-east-1.elb.amazonaws.com   80:32464/TCP,443:30930/TCP   10m
+nginx-ingress-ingress-nginx-controller-admission   ClusterIP      10.100.204.102   <none>                                                                    443/TCP                      10m
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl get ingress -n default
+No resources found in default namespace.
+[cloudshell-user@ip-10-136-43-151 ~]$ nano ingress.yaml                                                                                                                                                                                                                                 
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl apply -f ingress.yaml
+ingress.networking.k8s.io/wordpress-ingress configured
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl get certificates -n wordpress
+NAME            READY   SECRET          AGE
+wordpress-tls   False   wordpress-tls   7m42s
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl get certificaterequests -n wordpress
+NAME                  APPROVED   DENIED   READY   ISSUER             REQUESTOR                                         AGE
+wordpress-tls-2s28x   True                False   letsencrypt-prod   system:serviceaccount:cert-manager:cert-manager   8m9s
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl describe certificaterequest wordpress-tls-2s28x -n wordpress
+Name:         wordpress-tls-2s28x
+Namespace:    wordpress
+Labels:       <none>
+Annotations:  cert-manager.io/certificate-name: wordpress-tls
+              cert-manager.io/certificate-revision: 1
+              cert-manager.io/private-key-secret-name: wordpress-tls-k5jk8
+API Version:  cert-manager.io/v1
+Kind:         CertificateRequest
+Metadata:
+  Creation Timestamp:  2024-11-08T19:33:33Z
+  Generate Name:       wordpress-tls-
+  Generation:          1
+  Owner References:
+    API Version:           cert-manager.io/v1
+    Block Owner Deletion:  true
+    Controller:            true
+    Kind:                  Certificate
+    Name:                  wordpress-tls
+    UID:                   6da8fa7e-a990-428b-a7b5-b2f647c631f7
+  Resource Version:        16640
+  UID:                     d0b9d47e-6565-4a83-9daa-2f0de67be19f
+Spec:
+  Extra:
+    authentication.kubernetes.io/credential-id:
+      JTI=0af5f92b-c0be-497e-ba16-15ff8b8d74f2
+    authentication.kubernetes.io/node-name:
+      ip-172-31-70-64.ec2.internal
+    authentication.kubernetes.io/node-uid:
+      7821a9f7-1b3a-42fb-9ecc-fd3a383c2ab1
+    authentication.kubernetes.io/pod-name:
+      cert-manager-67f9cfbd75-xt5pq
+    authentication.kubernetes.io/pod-uid:
+      34d8508d-48b1-4e07-acbf-61ee871a3e0f
+  Groups:
+    system:serviceaccounts
+    system:serviceaccounts:cert-manager
+    system:authenticated
+  Issuer Ref:
+    Group:  cert-manager.io
+    Kind:   ClusterIssuer
+    Name:   letsencrypt-prod
+  Request:  LS0tLS1CRUdJTiBDRVJUSUZJQ0FURSBSRVFVRVNULS0tLS0KTUlJQ2tEQ0NBWGdDQVFBd0FEQ0NBU0l3RFFZSktvWklodmNOQVFFQkJRQURnZ0VQQURDQ0FRb0NnZ0VCQU5FZwpIM21KSC9jVncrOVdLVzV2dWRBU2w0bmUyalh0NEZVT05oNUhWcXVFdUJKOURqS0t4di9KRVZnUjdGcm5QOGphCi9iZjd0dENXMERyNFVOU01XS2EzK3NHd3JBQnlzQXhnekRJN3BHMnNSTzB2WDJMRDNVb1dMMVdQazRhQWNLU2gKaUxiR29COXI4ZUZpVzBLUlU1YUtyRjNraEhJOGZuUW1jMWRsbjU4VWNicXZxVkhtTzVlQzZlOStXbFhSRFB2cAprckZQS1dhN3hxK0dSNldhTzE3WnhCV0J0OUhxeWlWVFBEQ0t2Szlwa2xnNlVHQ0lhamVkNC93U2gxd2h4RkY1CmtoamFmT0pRbWYzblFhSjR0Mjlyczkxb2gxNXd2a0E2RU1ZSzAyQTB5WDlIUFdqS0pzZWRLeUNrdWRGem00Rk0Kd1dZV21zUmpPVTJDUEROTlZsVUNBd0VBQWFCTE1Fa0dDU3FHU0liM0RRRUpEakU4TURvd0t3WURWUjBSQkNRdwpJb0lnY21WMGJ6SXVjbVYwYjJWaFptbDBkR1ZzWlcxaGRHbGpZUzV2Ym14cGJtVXdDd1lEVlIwUEJBUURBZ1dnCk1BMEdDU3FHU0liM0RRRUJDd1VBQTRJQkFRQSsxV2tKTm5lYzMxbythQWlzcFhPeVFtWWlhVFNRdHR4ZjJOYTAKRTloeU1NdjNwekh1bzMxMXZBbExkVmhiN1pKclBtWC95NDRvVVdKOHI3Y1ZRTnlNNktrMXRKZlRncm50UkZWKwpyYUhsV3NseSs3dTN1eXlrWUVPY2ZaaFlOUW4wVm9EejlBeVlzb1pMLzR4R1hYaHE1OTJNVnlVTUh1TGJPNlpWCm4vWmRCQnVxTDZXOW5XcjRuUEJOcTk0d1RzU1hmakNMRWV0OXRUSFJjYXBoMVhSa2dUS2lHMHR6OHFoMjVaZ1cKd05ROUh1SjZBMm01Uyt3S3hOakJ6Q0daMU5yNms0bHNPUFRpMkVnOUlEdmxtb1JxNXAvaXIxaEpGcHhuTElDbAowUE12aFczdUxocGtoZWdva1ZBZmRNczJ4Uk1zeEU0Si9PNUZGMDhYU0VTRVk5c1YKLS0tLS1FTkQgQ0VSVElGSUNBVEUgUkVRVUVTVC0tLS0tCg==
+  UID:      e915b760-0ab8-47f6-84fc-37993196c57c
+  Usages:
+    digital signature
+    key encipherment
+  Username:  system:serviceaccount:cert-manager:cert-manager
+Status:
+  Conditions:
+    Last Transition Time:  2024-11-08T19:33:33Z
+    Message:               Certificate request has been approved by cert-manager.io
+    Reason:                cert-manager.io
+    Status:                True
+    Type:                  Approved
+    Last Transition Time:  2024-11-08T19:33:33Z
+    Message:               Waiting on certificate issuance from order wordpress/wordpress-tls-2s28x-3544721433: "pending"
+    Reason:                Pending
+    Status:                False
+    Type:                  Ready
+Events:
+  Type    Reason              Age    From                                                Message
+  ----    ------              ----   ----                                                -------
+  Normal  WaitingForApproval  8m55s  cert-manager-certificaterequests-issuer-selfsigned  Not signing CertificateRequest until it is Approved
+  Normal  WaitingForApproval  8m55s  cert-manager-certificaterequests-issuer-venafi      Not signing CertificateRequest until it is Approved
+  Normal  WaitingForApproval  8m55s  cert-manager-certificaterequests-issuer-ca          Not signing CertificateRequest until it is Approved
+  Normal  WaitingForApproval  8m55s  cert-manager-certificaterequests-issuer-vault       Not signing CertificateRequest until it is Approved
+  Normal  WaitingForApproval  8m55s  cert-manager-certificaterequests-issuer-acme        Not signing CertificateRequest until it is Approved
+  Normal  cert-manager.io     8m55s  cert-manager-certificaterequests-approver           Certificate request has been approved by cert-manager.io
+  Normal  IssuerNotFound      8m55s  cert-manager-certificaterequests-issuer-selfsigned  Referenced "ClusterIssuer" not found: clusterissuer.cert-manager.io "letsencrypt-prod" not found
+  Normal  IssuerNotFound      8m55s  cert-manager-certificaterequests-issuer-venafi      Referenced "ClusterIssuer" not found: clusterissuer.cert-manager.io "letsencrypt-prod" not found
+  Normal  IssuerNotFound      8m55s  cert-manager-certificaterequests-issuer-vault       Referenced "ClusterIssuer" not found: clusterissuer.cert-manager.io "letsencrypt-prod" not found
+  Normal  IssuerNotFound      8m55s  cert-manager-certificaterequests-issuer-acme        Referenced "ClusterIssuer" not found: clusterissuer.cert-manager.io "letsencrypt-prod" not found
+  Normal  IssuerNotFound      8m55s  cert-manager-certificaterequests-issuer-ca          Referenced "ClusterIssuer" not found: clusterissuer.cert-manager.io "letsencrypt-prod" not found
+[cloudshell-user@ip-10-136-43-151 ~]$ dig reto2.retoeafittelematica.online
+bash: dig: command not found
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl get certificates -n wordpress
+NAME            READY   SECRET          AGE
+wordpress-tls   False   wordpress-tls   16m
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl get certificaterequests -n wordpress
+NAME                  APPROVED   DENIED   READY   ISSUER             REQUESTOR                                         AGE
+wordpress-tls-2s28x   True                False   letsencrypt-prod   system:serviceaccount:cert-manager:cert-manager   16m
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl delete certificaterequest wordpress-tls-2s28x -n wordpress
+certificaterequest.cert-manager.io "wordpress-tls-2s28x" deleted
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl delete certificate wordpress-tls -n wordpress
+certificate.cert-manager.io "wordpress-tls" deleted
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl apply -f ingress.yaml
+ingress.networking.k8s.io/wordpress-ingress unchanged
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl get certificates -n wordpress
+NAME            READY   SECRET          AGE
+wordpress-tls   False   wordpress-tls   11s
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl get certificates -n wordpress
+wordpress-tls   False   wordpress-tls   11s[cloudshell-user@ip-10-136-43-151 ~]$ kubectl get certificates -n wordpress
+NAME            READY   SECRET          AGE
+wordpress-tls   False   wordpress-tls   95s
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl delete certificaterequest wordpress-tls-2s28x -n wordpress
+Error from server (NotFound): certificaterequests.cert-manager.io "wordpress-tls-2s28x" not found
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl delete certificate wordpress-tls -n wordpress
+certificate.cert-manager.io "wordpress-tls" deleted
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl apply -f ingress.yaml
+ingress.networking.k8s.io/wordpress-ingress unchanged
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl get certificates -n wordpress
+NAME            READY   SECRET          AGE
+wordpress-tls   False   wordpress-tls   13s
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl logs -n cert-manager -l app=cert-manager
+E1108 19:55:12.575385       1 sync.go:190] "cert-manager/challenges: propagation check failed" err="wrong status code '403', expected '200'" resource_name="wordpress-tls-cgzb7-3544721433-2160538209" resource_namespace="wordpress" resource_kind="Challenge" resource_version="v1" dnsName="reto2.retoeafittelematica.online" type="HTTP-01"
+E1108 19:55:20.600012       1 controller.go:208] "cert-manager/challenges: challenge in work queue no longer exists" err="challenge.acme.cert-manager.io \"wordpress-tls-djs6k-3544721433-2160538209\" not found"
+I1108 19:55:22.517465       1 pod.go:59] "cert-manager/challenges/http01/selfCheck/http01/ensurePod: found one existing HTTP01 solver pod" resource_name="wordpress-tls-cgzb7-3544721433-2160538209" resource_namespace="wordpress" resource_kind="Challenge" resource_version="v1" dnsName="reto2.retoeafittelematica.online" type="HTTP-01" related_resource_name="cm-acme-http-solver-tr2bk" related_resource_namespace="wordpress" related_resource_kind="" related_resource_version=""
+I1108 19:55:22.517545       1 service.go:45] "cert-manager/challenges/http01/selfCheck/http01/ensureService: found one existing HTTP01 solver Service for challenge resource" resource_name="wordpress-tls-cgzb7-3544721433-2160538209" resource_namespace="wordpress" resource_kind="Challenge" resource_version="v1" dnsName="reto2.retoeafittelematica.online" type="HTTP-01" related_resource_name="cm-acme-http-solver-crqwt" related_resource_namespace="wordpress" related_resource_kind="" related_resource_version=""
+I1108 19:55:22.517617       1 ingress.go:99] "cert-manager/challenges/http01/selfCheck/http01/ensureIngress: found one existing HTTP01 solver ingress" resource_name="wordpress-tls-cgzb7-3544721433-2160538209" resource_namespace="wordpress" resource_kind="Challenge" resource_version="v1" dnsName="reto2.retoeafittelematica.online" type="HTTP-01" related_resource_name="cm-acme-http-solver-sz6cs" related_resource_namespace="wordpress" related_resource_kind="Ingress" related_resource_version="v1"
+E1108 19:55:22.532866       1 sync.go:190] "cert-manager/challenges: propagation check failed" err="wrong status code '403', expected '200'" resource_name="wordpress-tls-cgzb7-3544721433-2160538209" resource_namespace="wordpress" resource_kind="Challenge" resource_version="v1" dnsName="reto2.retoeafittelematica.online" type="HTTP-01"
+I1108 19:55:32.533784       1 pod.go:59] "cert-manager/challenges/http01/selfCheck/http01/ensurePod: found one existing HTTP01 solver pod" resource_name="wordpress-tls-cgzb7-3544721433-2160538209" resource_namespace="wordpress" resource_kind="Challenge" resource_version="v1" dnsName="reto2.retoeafittelematica.online" type="HTTP-01" related_resource_name="cm-acme-http-solver-tr2bk" related_resource_namespace="wordpress" related_resource_kind="" related_resource_version=""
+I1108 19:55:32.533847       1 service.go:45] "cert-manager/challenges/http01/selfCheck/http01/ensureService: found one existing HTTP01 solver Service for challenge resource" resource_name="wordpress-tls-cgzb7-3544721433-2160538209" resource_namespace="wordpress" resource_kind="Challenge" resource_version="v1" dnsName="reto2.retoeafittelematica.online" type="HTTP-01" related_resource_name="cm-acme-http-solver-crqwt" related_resource_namespace="wordpress" related_resource_kind="" related_resource_version=""
+I1108 19:55:32.533899       1 ingress.go:99] "cert-manager/challenges/http01/selfCheck/http01/ensureIngress: found one existing HTTP01 solver ingress" resource_name="wordpress-tls-cgzb7-3544721433-2160538209" resource_namespace="wordpress" resource_kind="Challenge" resource_version="v1" dnsName="reto2.retoeafittelematica.online" type="HTTP-01" related_resource_name="cm-acme-http-solver-sz6cs" related_resource_namespace="wordpress" related_resource_kind="Ingress" related_resource_version="v1"
+E1108 19:55:32.542163       1 sync.go:190] "cert-manager/challenges: propagation check failed" err="wrong status code '403', expected '200'" resource_name="wordpress-tls-cgzb7-3544721433-2160538209" resource_namespace="wordpress" resource_kind="Challenge" resource_version="v1" dnsName="reto2.retoeafittelematica.online" type="HTTP-01"
+[cloudshell-user@ip-10-136-43-151 ~]$ nano ingress.yaml
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl apply -f ingress.yaml
+ingress.networking.k8s.io/wordpress-ingress configured
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl get ingress -n wordpress
+NAME                        CLASS    HOSTS                                                                     ADDRESS                                                                   PORTS   AGE
+cm-acme-http-solver-sz6cs   <none>   reto2.retoeafittelematica.online                                          a66e80680e22843dabc063723483a918-1212213072.us-east-1.elb.amazonaws.com   80      4m39s
+wordpress-ingress           <none>   a66e80680e22843dabc063723483a918-1212213072.us-east-1.elb.amazonaws.com   a66e80680e22843dabc063723483a918-1212213072.us-east-1.elb.amazonaws.com   80      27m
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl get pods -n wordpress
+NAME                        READY   STATUS             RESTARTS         AGE
+cm-acme-http-solver-tr2bk   1/1     Running            0                5m40s
+wordpress-8b5949d44-5bsxd   0/1     CrashLoopBackOff   11 (2m42s ago)   34m
+wordpress-8b5949d44-vgjsr   0/1     CrashLoopBackOff   11 (2m48s ago)   34m
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl get services -n wordpress
+NAME                        TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+cm-acme-http-solver-crqwt   NodePort    10.100.60.153   <none>        8089:32362/TCP   5m41s
+wordpress-service           ClusterIP   10.100.75.227   <none>        80/TCP           34m
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl logs wordpress-8b5949d44-5bsxd -n wordpress
+chown: changing ownership of '.': Operation not permitted
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl describe pvc -n wordpress
+Name:          wordpress-pv-claim
+Namespace:     wordpress
+StorageClass:  
+Status:        Bound
+Volume:        wordpress-pv
+Labels:        <none>
+Annotations:   pv.kubernetes.io/bind-completed: yes
+               pv.kubernetes.io/bound-by-controller: yes
+Finalizers:    [kubernetes.io/pvc-protection]
+Capacity:      1Gi
+Access Modes:  RWO
+VolumeMode:    Filesystem
+Used By:       wordpress-8b5949d44-5bsxd
+               wordpress-8b5949d44-vgjsr
+Events:        <none>
+[cloudshell-user@ip-10-136-43-151 ~]$ nano deployment.yaml
+[cloudshell-user@ip-10-136-43-151 ~]$ rm deployment.yaml                                                                                                                                                                                                                                
+[cloudshell-user@ip-10-136-43-151 ~]$ nano deployment.yaml                                                                                                                                                                                                                              
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl apply -f wordpress-deployment.yaml
+error: the path "wordpress-deployment.yaml" does not exist
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl apply -f deployment.yaml                                                                                                                                                                                                                  
+The request is invalid: patch: Invalid value: "map[metadata:map[annotations:map[kubectl.kubernetes.io/last-applied-configuration:{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"name\":\"wordpress\",\"namespace\":\"wordpress\"},\"spec\":{\"selector\":{\"matchLabels\":{\"app\":\"wordpress\"}},\"template\":{\"metadata\":{\"labels\":{\"app\":\"wordpress\"}},\"spec\":{\"containers\":[{\"env\":[{\"name\":\"WORDPRESS_DB_HOST\",\"value\":\"ip-172-31-81-180.ec2.internal\"},{\"name\":\"WORDPRESS_DB_NAME\",\"value\":\"wordpress\"},{\"name\":\"WORDPRESS_DB_USER\",\"value\":\"wordpressuser\"},{\"name\":\"WORDPRESS_DB_PASSWORD\",\"value\":\"password\"}],\"image\":\"wordpress:latest\",\"name\":\"wordpress\",\"ports\":[{\"containerPort\":80}],\"securityContext\":{\"fsGroup\":1000,\"runAsUser\":1000},\"volumeMounts\":[{\"mountPath\":\"/var/www/html\",\"name\":\"wordpress-persistent-storage\"}]}],\"volumes\":[{\"name\":\"wordpress-persistent-storage\",\"persistentVolumeClaim\":{\"claimName\":\"wordpress-pv-claim\"}}]}}}}\n]] spec:map[replicas:<nil> template:map[spec:map[]]]]": strict decoding error: unknown field "spec.template.spec.containers[0].securityContext.fsGroup"
+[cloudshell-user@ip-10-136-43-151 ~]$ rm deployment.yaml                                                                                                                                                                                                                                
+[cloudshell-user@ip-10-136-43-151 ~]$ nano deployment.yaml                                                                                                                                                                                                                              
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl apply -f deployment.yaml                                                                                                                                                                                                                  
+deployment.apps/wordpress configured
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl delete pod -l app=wordpress -n wordpress
+pod "wordpress-54b9cb6c89-twkw9" deleted
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl logs -l app=wordpress -n wordpress
+tar: ./wp-links-opml.php: Cannot open: Permission denied
+tar: ./wp-load.php: Cannot open: Permission denied
+tar: ./wp-login.php: Cannot open: Permission denied
+tar: ./wp-mail.php: Cannot open: Permission denied
+tar: ./wp-settings.php: Cannot open: Permission denied
+tar: ./wp-signup.php: Cannot open: Permission denied
+tar: ./wp-trackback.php: Cannot open: Permission denied
+tar: ./xmlrpc.php: Cannot open: Permission denied
+tar: ./wp-config-docker.php: Cannot open: Permission denied
+tar: Exiting with failure status due to previous errors
+[cloudshell-user@ip-10-136-43-151 ~]$ rm deployment.yaml                                                                                                                                                                                                                                
+[cloudshell-user@ip-10-136-43-151 ~]$ nano deployment.yaml                                                                                                                                                                                                                              
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl apply -f deployment.yaml                                                                                                                                                                                                                  
+deployment.apps/wordpress configured
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl delete pod -l app=wordpress -n wordpress                                                                                                                                                                                                  
+pod "wordpress-54b9cb6c89-jhw52" deleted
+pod "wordpress-788f5bf74f-74w6b" deleted
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl logs -l app=wordpress -n wordpress                                                                                                                                                                                                        
+tar: ./wp-links-opml.php: Cannot open: Permission denied
+tar: ./wp-load.php: Cannot open: Permission denied
+tar: ./wp-login.php: Cannot open: Permission denied
+tar: ./wp-mail.php: Cannot open: Permission denied
+tar: ./wp-settings.php: Cannot open: Permission denied
+tar: ./wp-signup.php: Cannot open: Permission denied
+tar: ./wp-trackback.php: Cannot open: Permission denied
+tar: ./xmlrpc.php: Cannot open: Permission denied
+tar: ./wp-config-docker.php: Cannot open: Permission denied
+tar: Exiting with failure status due to previous errors
+chown: changing ownership of '.': Operation not permitted
+[cloudshell-user@ip-10-136-43-151 ~]$ rm deployment.yaml                                                                                                                                                                                                                                
+[cloudshell-user@ip-10-136-43-151 ~]$ nano deployment.yaml                                                                                                                                                                                                                              
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl delete pod -l app=wordpress -n wordpress                                                                                                                                                                                                  
+pod "wordpress-54b9cb6c89-4297g" deleted
+pod "wordpress-788f5bf74f-m5f2x" deleted
+^[[A^[[A[cloudshell-user@ip-10-136-43-kubectl logs -l app=wordpress -n wordpress                                                                                                                                                                                                        
+tar: ./wp-links-opml.php: Cannot open: Permission denied
+tar: ./wp-load.php: Cannot open: Permission denied
+tar: ./wp-login.php: Cannot open: Permission denied
+tar: ./wp-mail.php: Cannot open: Permission denied
+tar: ./wp-settings.php: Cannot open: Permission denied
+tar: ./wp-signup.php: Cannot open: Permission denied
+tar: ./wp-trackback.php: Cannot open: Permission denied
+tar: ./xmlrpc.php: Cannot open: Permission denied
+tar: ./wp-config-docker.php: Cannot open: Permission denied
+tar: Exiting with failure status due to previous errors
+chown: changing ownership of '.': Operation not permitted
+[cloudshell-user@ip-10-136-43-151 ~]$ rm deployment.yaml                                                                                                                                                                                                                                
+[cloudshell-user@ip-10-136-43-151 ~]$ nano deployment.yaml                                                                                                                                                                                                                              
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl delete pod -l app=wordpress -n wordpress                                                                                                                                                                                                  
+pod "wordpress-54b9cb6c89-4297g" deleted
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl apply -f deployment.yaml                                                                                                                                                                                                                  
+deployment.apps/wordpress configured
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl delete pod -l app=wordpress -n wordpress                                                                                                                                                                                                  
+pod "wordpress-788f5bf74f-ls544" deleted
+pod "wordpress-8b5949d44-96scv" deleted
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl logs -l app=wordpress -n wordpress                                                                                                                                                                                                        
+chown: changing ownership of '.': Operation not permitted
+chown: changing ownership of '.': Operation not permitted
+[cloudshell-user@ip-10-136-43-151 ~]$ rm deployment.yaml                                                                                                                                                                                                                                
+[cloudshell-user@ip-10-136-43-151 ~]$ nano deployment.yaml                                                                                                                                                                                                                              
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl delete pod -l app=wordpress -n wordpress                                                                                                                                                                                                  
+pod "wordpress-8b5949d44-c6jff" deleted
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl logs -l app=wordpress -n wordpress                                                                                                                                                                                                        
+chown: changing ownership of '.': Operation not permitted
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl delete pod -l app=wordpress -n wordpress                                                                                                                                                                                                  
+pod "wordpress-8b5949d44-c6jff" deleted
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl logs -l app=wordpress -n wordpress                                                                                                                                                                                                        
+chown: changing ownership of '.': Operation not permitted
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl delete pod -l app=wordpress -n wordpress                                                                                                                                                                                                  
+pod "wordpress-8b5949d44-96ptl" deleted
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl logs -l app=wordpress -n wordpress                                                                                                                                                                                                        
+WordPress not found in /var/www/html - copying now...
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl logs -l app=wordpress -n wordpress
+WordPress not found in /var/www/html - copying now...
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl logs -l app=wordpress -n wordpress
+WordPress not found in /var/www/html - copying now...
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl logs -l app=wordpress -n wordpress
+WordPress not found in /var/www/html - copying now...
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl logs -l app=wordpress -n wordpress
+WordPress not found in /var/www/html - copying now...
+[cloudshell-user@ip-10-136-43-151 ~]$ kubectl logs -l app=wordpress -n wordpress
+WordPress not found in /var/www/html - copying now...
+Complete! WordPress has been successfully copied to /var/www/htmlNo 'wp-config.php' found in /var/www/html, but 'WORDPRESS_...' variables supplied; copying 'wp-config-docker.php' (WORDPRESS_DB_HOST WORDPRESS_DB_NAME WORDPRESS_DB_PASSWORD WORDPRESS_DB_USER WORDPRESS_SERVICE_PORT WORDPRESS_SERVICE_PORT_80_TCP WORDPRESS_SERVICE_PORT_80_TCP_ADDR WORDPRESS_SERVICE_PORT_80_TCP_PORT WORDPRESS_SERVICE_PORT_80_TCP_PROTO WORDPRESS_SERVICE_SERVICE_HOST WORDPRESS_SERVICE_SERVICE_PORT)
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.31.2.183. Set the 'ServerName' directive globally to suppress this message
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.31.2.183. Set the 'ServerName' directive globally to suppress this message
+[Fri Nov 08 20:15:51.320907 2024] [mpm_prefork:notice] [pid 1:tid 1] AH00163: Apache/2.4.62 (Debian) PHP/8.2.25 configured -- resuming normal operations
+[Fri Nov 08 20:15:51.321029 2024] [core:notice] [pid 1:tid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+[cloudshell-user@ip-10-136-43-151 ~]$ 

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: moodle-pv-new
+spec:
+  capacity:
+    storage: 12Gi   # Tamaño del almacenamiento (ajustar según tus necesidades)
+  accessModes:
+    - ReadWriteOnce  # RWX es necesario para acceso compartido en NFS
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    server: ip-172-31-91-122.ec2.internal  # Dirección IP privada del servidor NFS
+    path: /srv/nfs/moodledata 

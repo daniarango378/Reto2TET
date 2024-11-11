@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: moodle-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: moodle
+  template:
+    metadata:
+      labels:
+        app: moodle
+    spec:
+      containers:
+        - name: moodle
+          image: bitnami/moodle:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: MOODLE_DATABASE_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: moodle-db-secret
+                  key: dbhost
+            - name: MOODLE_DATABASE_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: moodle-db-secret
+                  key: dbname
+            - name: MOODLE_DATABASE_USER
+              valueFrom:
+                secretKeyRef:
+                  name: moodle-db-secret
+                  key: dbuser
+            - name: MOODLE_DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: moodle-db-secret
+                  key: dbpass
+            - name: ALLOW_EMPTY_PASSWORD
+              value: "yes"
+          volumeMounts:
+            - name: moodledata
+              mountPath: /bitnami/moodle
+      volumes:
+        - name: moodledata
+          persistentVolumeClaim:
+            claimName: moodle-nfs-pvc
+

@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: moodle-pvc
+spec:
+  accessModes:
+    - ReadWriteMany  # Permitir que varios pods usen el mismo volumen
+  storageClassName: nfs-storage  # Asigna el StorageClass creado
+  resources:
+    requests:
+      storage: 8Gi  # Tamaño del volumen
+

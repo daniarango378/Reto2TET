@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: moodle-nfs-pv
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    path: /srv/nfs/moodledata
+    server: 172.31.36.170
+  persistentVolumeReclaimPolicy: Retain
+

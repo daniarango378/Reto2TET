@@ -13,7 +13,7 @@ spec:
         app: wordpress
     spec:
       securityContext:
-        fsGroup: 1000  # Define el grupo de archivos para permisos
+        fsGroup: 1000  
       initContainers:
       - name: init-wordpress
         image: wordpress:latest
@@ -44,5 +44,5 @@ spec:
       volumes:
       - name: wordpress-persistent-storage
         persistentVolumeClaim:
-          claimName: wordpress-pv-claim  # Asegúrate de que coincida con el PVC
+          claimName: wordpress-pv-claim  
 

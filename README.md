@@ -1,8 +1,8 @@
-# Reto 2: Despliegue de LMS Moodle en Kubernetes en Alta Disponibilidad
+# Reto 2: Despliegue de Wordpress en Kubernetes en Alta Disponibilidad
 
 **Info de la materia:** ST0263: Tópicos Especiales en Telemática, 2024-2  
 **Estudiantes:** Daniela Arango Gutiérrez (darangog2@eafit.edu.co)  
-**Profesor:** Nombre del Profesor (email@eafit.edu.co)  
+**Profesor:** Alvaro Enrique Ospina Sanjuan (aeospinas@eafit.edu.co)  
 
 ## 1. Descripción General
 

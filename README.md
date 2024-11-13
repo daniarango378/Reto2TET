@@ -70,6 +70,8 @@ El diseño de la arquitectura está basado en los siguientes componentes:
 
 ## 5. Otra Información Relevante
 
+link al video sustentación: https://youtu.be/TDtpiAIJ4J4
+
 - **Recursos:**  
   - Guías y recursos de Kubernetes: 
     - [Despliegue de Wordpress en AWS EKS](https://github.com/st0263eafit/st0263-242/tree/main/eks-wp)
